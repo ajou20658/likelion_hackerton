@@ -5,7 +5,7 @@ from flask import jsonify
 import re
 from krwordrank.word import KRWordRank
 from krwordrank.hangle import normalize
-
+from operator import itemgetter
 
 app = Flask(__name__)
 
@@ -31,6 +31,7 @@ def preprocess_text(fname):
 def reqToServer():
     try:
         url = request.args.get('uri')
+        print(url)
         fname = url
         texts=preprocess_text(fname)
     except:
@@ -48,9 +49,15 @@ def reqToServer():
         keywords, rank, graph = wordrank_extractor.extract(texts, beta, max_iter)
         #keywords는 dict자료형 key:value 로 되어있음 
 
-        common_keyword={"서울","있는","따르","오후","오전","경찰","열린","사건","따르면","받는","혐의","있다","예고"}
+        common_keyword={"서울","부산","경기","강원","광주","전국","조기","지난","참가자들","피해","현장","대비","2023","있는","따르","오후","오전","경찰","열린","사건","따르면","받는",
+                        "혐의","있다","예고","밝혔다","위한","위해","것으로","국내","해외","국외","한국","게임",
+                        "글로벌","개발","공식","기업","고객","공식","대표","매출","브랜드","상반기","서비스","세계","스마트폰","올해","출시","케이스","패키지","함께","후보자",
+                        "공개","기술","나선","분당","시리즈","시장","전년","전략적","전문","제25회","초청해","진행","인사","방송","모바일","마련된","YTN","vip","뉴스","신규","연구","영상",
+                        "캐릭터","페이지에","검증","관련","미국","오픈","특별","이벤트","제품","준비","구축","제공","영업이익","영업","이익","콘텐츠"
+                        }
+        filtered = {word: r for word, r in sorted(keywords.items(), key=itemgetter(1), reverse=True) if word not in common_keyword}
+        filtered = dict(list(filtered.items())[:30])
 
-        filtered = {word: r for word, r in keywords.items() if word not in common_keyword}
         # for word, r in sorted(keywords.items(), key=lambda x:x[1], reverse=True)[:30]:
         #     if word in common_keyword:
         #         continue
@@ -60,6 +67,7 @@ def reqToServer():
     except:
         print('[Error] : Logic Error')
         return None
-    
+
 if __name__ == '__main__':
     app.run(debug=True)
+

@@ -5,5 +5,5 @@ if sys.version_info.major < 3:
 
 from . import graph
 from . import hangle
-from . import sentence
+# from . import sentence
 from . import word
