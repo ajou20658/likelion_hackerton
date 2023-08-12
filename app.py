@@ -9,7 +9,7 @@ from operator import itemgetter
 
 app = Flask(__name__)
 
-
+staticurl="home/ubuntu/git/likelion_hackerton_server/src/main/resources/static/"
 def preprocess_text(fname):
     with open(fname, encoding='utf-8') as f:
         docs = f.read()
@@ -30,10 +30,23 @@ def preprocess_text(fname):
 @app.route('/req',methods=['GET'])
 def reqToServer():
     try:
-        url = request.args.get('uri')
-        print(url)
-        fname = url
-        texts=preprocess_text(fname)
+        date = request.args.get('date')
+        mode = request.args.get('mode')
+        sid_param = request.args.get('sid1')
+        fname = staticurl+date+sid_param+".txt"
+        if mode==0:
+            texts=preprocess_text(fname)
+        elif mode==1:
+            texts = []
+            for i in range(7):  # 7일 동안의 데이터를 처리
+                day = (date.datetime.strptime(date, '%Y%m%d') - date.timedelta(days=i)).strftime('%Y%m%d')
+                daily_fname = staticurl + day + sid_param + ".txt"
+                try:
+                    daily_texts = preprocess_text(daily_fname)
+                except:
+                    #크롤링 하지 않은 요일은 넘어가기
+                    print("not exists")
+                texts.extend(daily_texts)
     except:
         print('[Error] : Failed to access url')
         return None
