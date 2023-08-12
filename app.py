@@ -61,7 +61,7 @@ def reqToServer():
                         "국회","대의원제","돌파","이날","이후","체결","재판에","사무관","곳곳","우리","내리","합의","우려","자금",
                         }
         region1={
-            "서울","부산","대전","대구","인천","광주","대전","울산","경기도","경기","충청","전라","경상","제주도","세종"
+            "서울","부산","대전","대구","인천","광주","대전","울산","경기도","경기","충북","충남","전북","전남","경남","경북","제주","제주도","세종"
         }
         filtered = {word: r for word, r in sorted(keywords.items(), key=itemgetter(1), reverse=True) if word not in common_keyword and word not in region1}
         # filtered = {word: r for word, r in sorted(keywords.items(), key=itemgetter(1), reverse=True) if word not in common_keyword}
