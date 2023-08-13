@@ -80,13 +80,14 @@ def reqToServer():
         filtered = {word: r for word, r in sorted(keywords.items(), key=itemgetter(1), reverse=True) if word not in common_keyword and word not in region1}
         # filtered = {word: r for word, r in sorted(keywords.items(), key=itemgetter(1), reverse=True) if word not in common_keyword}
         filtered = dict(list(filtered.items())[:30])
-
+        sorted_filter = sorted(filtered.items,key=lambda item: item[1])
+        indexed_dict = {index: keyword for index, (keyword, _) in enumerate(sorted_filter, start=1)}
         # for word, r in sorted(keywords.items(), key=lambda x:x[1], reverse=True)[:30]:
         #     if word in common_keyword:
         #         continue
         #     print('%8s:\t%.4f' % (word, r))
         
-        return filtered
+        return indexed_dict
     except:
         print('[Error] : Logic Error')
         return None
