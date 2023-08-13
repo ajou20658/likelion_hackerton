@@ -8,7 +8,6 @@ from krwordrank.hangle import normalize
 from operator import itemgetter
 
 app = Flask(__name__)
-
 staticurl="home/ubuntu/git/likelion_hackerton_server/src/main/resources/static/"
 def preprocess_text(fname):
     with open(fname, encoding='utf-8') as f:
@@ -33,6 +32,7 @@ def reqToServer():
         date = request.args.get('date')
         mode = request.args.get('mode')
         sid_param = request.args.get('sid1')
+        print(date,mode,sid_param)
         fname = staticurl+date+sid_param+".txt"
         if mode==0:
             texts=preprocess_text(fname)
