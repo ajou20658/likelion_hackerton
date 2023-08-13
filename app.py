@@ -41,6 +41,7 @@ def reqToServer():
             for i in range(7):  # 7일 동안의 데이터를 처리
                 day = (date.datetime.strptime(date, '%Y%m%d') - date.timedelta(days=i)).strftime('%Y%m%d')
                 daily_fname = staticurl + day + sid_param + ".txt"
+                print(daily_fname)
                 try:
                     daily_texts = preprocess_text(daily_fname)
                 except:
@@ -80,8 +81,11 @@ def reqToServer():
         filtered = {word: r for word, r in sorted(keywords.items(), key=itemgetter(1), reverse=True) if word not in common_keyword and word not in region1}
         # filtered = {word: r for word, r in sorted(keywords.items(), key=itemgetter(1), reverse=True) if word not in common_keyword}
         filtered = dict(list(filtered.items())[:30])
-        sorted_filter = sorted(filtered.items,key=lambda item: item[1])
-        indexed_dict = {index: keyword for index, (keyword, _) in enumerate(sorted_filter, start=1)}
+        try:
+            sorted_filter = sorted(filtered.items,key=lambda item: item[1])
+            indexed_dict = {index: keyword for index, (keyword, _) in enumerate(sorted_filter, start=1)}
+        except:
+            print("indexed is err")
         # for word, r in sorted(keywords.items(), key=lambda x:x[1], reverse=True)[:30]:
         #     if word in common_keyword:
         #         continue
