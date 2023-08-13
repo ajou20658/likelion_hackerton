@@ -28,7 +28,7 @@ def preprocess_text(fname):
 
 @app.route('/req',methods=['GET'])
 def reqToServer():
-    texts
+    texts=[]
     try:
         date = request.args.get('date')
         mode = request.args.get('mode')
