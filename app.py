@@ -28,6 +28,7 @@ def preprocess_text(fname):
 
 @app.route('/req',methods=['GET'])
 def reqToServer():
+    texts
     try:
         date = request.args.get('date')
         mode = request.args.get('mode')
@@ -48,6 +49,10 @@ def reqToServer():
                     #크롤링 하지 않은 요일은 넘어가기
                     print("not exists")
                 texts.extend(daily_texts)
+    except:
+        print('[Error] : Failed to access url')
+        return None
+    try:
         wordrank_extractor = KRWordRank(
             min_count = 5, # 단어의 최소 출현 빈도수 (그래프 생성 시)
             max_length = 10, # 단어의 최대 길이
@@ -59,11 +64,6 @@ def reqToServer():
         keywords, rank, graph = wordrank_extractor.extract(texts, beta, max_iter)
         #keywords는 dict자료형 key:value 로 되어있음 
 
-    except:
-        print('[Error] : Failed to access url')
-        return None
-    try:
-        
         common_keyword={"전국","조기","지난","참가자들","피해","현장","대비","2023","있는","따르","오후","오전","경찰","열린","사건","따르면","받는",
                         "혐의","있다","예고","밝혔다","위한","위해","것으로","국내","해외","국외","한국","게임",
                         "글로벌","개발","공식","기업","고객","공식","대표","매출","브랜드","상반기","서비스","세계","스마트폰","올해","출시","케이스","패키지","함께","후보자",
