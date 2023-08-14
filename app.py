@@ -12,18 +12,21 @@ staticurl="home/ubuntu/git/likelion_hackerton_server/src/main/resources/static/"
 def preprocess_text(fname):
     with open(fname, encoding='utf-8') as f:
         docs = f.read()
+        print("0")
         docs = docs.split('\n')  # 줄바꿈을 기준으로 리스트로 분리
-
+        print("0")
         # "... " 이후의 내용을 제거한 후 전처리
         processed_docs = []
         for doc in docs:
+            print("01")
             if " … " in doc:
                 doc = doc.split(" … ")[0]
             doc = re.sub(r'[^\w\s]', '', doc).replace('\n', '')
             doc = re.sub(r'\b\d+[a-zA-Z가-힣]+\b', '', doc)
             doc = re.sub(r'[은는이가을를면]+\b','',doc)
-            
+            print("02")
             processed_docs.append(doc)
+        print("03")
         return processed_docs
 
 @app.route('/req',methods=['GET'])
