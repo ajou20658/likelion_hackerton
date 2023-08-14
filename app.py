@@ -8,7 +8,7 @@ from krwordrank.hangle import normalize
 from operator import itemgetter
 
 app = Flask(__name__)
-staticurl="/home/ubuntu/git/likelion_hackerton_server/src/main/resources/static/20230814100.txt"
+staticurl="/home/ubuntu/git/likelion_hackerton_server/src/main/resources/static/"
 def preprocess_text(fname):
     with open(fname, encoding='utf-8') as f:
         docs = f.read()
