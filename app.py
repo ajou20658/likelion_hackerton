@@ -78,7 +78,7 @@ def reqToServer():
         # filtered = {word: r for word, r in sorted(keywords.items(), key=itemgetter(1), reverse=True) if word not in common_keyword}
         filtered = dict(list(filtered.items())[:30])
         try:
-            sorted_filter = sorted(filtered.items,key=lambda item: item[1])
+            sorted_filter = sorted(filtered.items(), key=lambda item: item[1], reverse=True)
             indexed_dict = {index: keyword for index, (keyword, _) in enumerate(sorted_filter, start=1)}
         except:
             print("indexed is err")
