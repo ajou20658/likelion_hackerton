@@ -41,7 +41,6 @@ def reqToServer():
             
         elif mode==1:
             print("mode 1 here")
-            texts = []
             for i in range(7):  # 7일 동안의 데이터를 처리
                 day = (date.datetime.strptime(date, '%Y%m%d') - date.timedelta(days=i)).strftime('%Y%m%d')
                 daily_fname = staticurl + day + sid_param + ".txt"
