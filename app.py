@@ -35,11 +35,12 @@ def reqToServer():
         sid_param = request.args.get('sid1')
         print(date,mode,sid_param)
         fname = staticurl+date+sid_param+".txt"
-        if mode==0:
+        print(type(mode))
+        if mode=="0":
             print("mode 0 here")
             texts=preprocess_text(fname)
             
-        elif mode==1:
+        elif mode=="1":
             print("mode 1 here")
             for i in range(7):  # 7일 동안의 데이터를 처리
                 day = (date.datetime.strptime(date, '%Y%m%d') - date.timedelta(days=i)).strftime('%Y%m%d')
