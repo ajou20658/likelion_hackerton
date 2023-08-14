@@ -8,7 +8,7 @@ from krwordrank.hangle import normalize
 from operator import itemgetter
 
 app = Flask(__name__)
-staticurl="home/ubuntu/git/likelion_hackerton_server/src/main/resources/static/"
+staticurl="home/ubuntu/git/likelion_hackerton_server/src/main/resources/static/20230814100.txt"
 def preprocess_text(fname):
     with open(fname, encoding='utf-8') as f:
         docs = f.read()
@@ -41,7 +41,7 @@ def reqToServer():
         print(fname)
         if mode=="0":
             print("mode 0 here")
-            texts=preprocess_text(fname)
+            texts.extend(preprocess_text(fname))
         elif mode=="1":
             print("mode 1 here")
             for i in range(7):  # 7일 동안의 데이터를 처리
