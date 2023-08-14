@@ -8,25 +8,20 @@ from krwordrank.hangle import normalize
 from operator import itemgetter
 
 app = Flask(__name__)
-staticurl="home/ubuntu/git/likelion_hackerton_server/src/main/resources/static/20230814100.txt"
+staticurl="/home/ubuntu/git/likelion_hackerton_server/src/main/resources/static/20230814100.txt"
 def preprocess_text(fname):
     with open(fname, encoding='utf-8') as f:
         docs = f.read()
-        print("0")
         docs = docs.split('\n')  # 줄바꿈을 기준으로 리스트로 분리
-        print("0")
         # "... " 이후의 내용을 제거한 후 전처리
         processed_docs = []
         for doc in docs:
-            print("01")
             if " … " in doc:
                 doc = doc.split(" … ")[0]
             doc = re.sub(r'[^\w\s]', '', doc).replace('\n', '')
             doc = re.sub(r'\b\d+[a-zA-Z가-힣]+\b', '', doc)
             doc = re.sub(r'[은는이가을를면]+\b','',doc)
-            print("02")
             processed_docs.append(doc)
-        print("03")
         return processed_docs
 
 @app.route('/req',methods=['GET'])
@@ -36,18 +31,13 @@ def reqToServer():
         date = request.args.get('date')
         mode = request.args.get('mode')
         sid_param = request.args.get('sid1')
-        print(date,mode,sid_param)
         fname = staticurl+date+sid_param+".txt"
-        print(fname)
         if mode=="0":
-            print("mode 0 here")
             texts.extend(preprocess_text(fname))
         elif mode=="1":
-            print("mode 1 here")
             for i in range(7):  # 7일 동안의 데이터를 처리
                 day = (date.datetime.strptime(date, '%Y%m%d') - date.timedelta(days=i)).strftime('%Y%m%d')
                 daily_fname = staticurl + day + sid_param + ".txt"
-                print(daily_fname)
                 try:
                     daily_texts = preprocess_text(daily_fname)
                 except:
