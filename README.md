@@ -6,3 +6,6 @@
 
 자세한 내용은 아래 링크를 참고하세요
 https://github.com/lovit/KR-WordRank
+
+실행을 위해서 flask기반 venv가상 환경이 필요,
+코드내에서 접근하려는 경로에 필요한 txt파일이 존재해야함.
